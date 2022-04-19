@@ -1,0 +1,42 @@
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  height: 8rem;
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 14px;
+  letter-spacing: 0px;
+  text-align: left;
+
+  a {
+    text-decoration: none;
+  }
+  &__home {
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+  }
+}
+
+.logo-1 {
+  margin-right: 2rem;
+  margin-left: 2rem;
+  // margin-left: -1rem;
+}
+
+.link-container {
+  margin-right: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.link-container a {
+  margin-right: 5rem;
+}
+
+.nav-links {
+  color: #949ea0;
+}

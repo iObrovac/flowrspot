@@ -1,0 +1,61 @@
+.hero-container {
+  height: 50rem;
+  background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.3) 0%,
+      rgba(0, 0, 0, 0.8) 100%
+    ),
+    url("../../media/img/pl-hero.png");
+
+  background-size: cover;
+  background-position: top;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.hero-title {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 4rem;
+  line-height: 4rem;
+  // text-align: center;
+  color: #ffffff;
+  margin-bottom: 1.5rem;
+}
+
+.hero-subtitle {
+  font-family: "Playfair Display";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 17px;
+  // text-align: center;
+  color: #ffffff;
+  mix-blend-mode: normal;
+  opacity: 0.7;
+  margin-bottom: 4.5rem;
+}
+
+.hero-input {
+  min-width: 60rem;
+  height: 7rem;
+
+  font-family: "Ubuntu";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 18px;
+  padding: 2rem;
+
+  color: #949ea0;
+}
+
+.hero-input:active,
+.hero-input:focus {
+  outline: none;
+}

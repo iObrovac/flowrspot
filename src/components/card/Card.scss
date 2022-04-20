@@ -1,0 +1,89 @@
+.card-wrapper {
+  // height: 10rem;
+  // width: 10rem;
+  background-size: cover;
+  background-position: top;
+  background-repeat: no-repeat;
+  height: 50vh;
+  position: relative;
+
+  & > * {
+    z-index: 2;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.0001) 0%,
+      rgba(0, 0, 0, 0.7) 89.5%
+    );
+    z-index: 1;
+  }
+  // background: linear-gradient(
+  //   180deg,
+  //   rgba(0, 0, 0, 0.0001) 0%,
+  //   rgba(0, 0, 0, 0.7) 89.5%
+  // );
+  border-radius: 3px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.card-title {
+  font-family: "Ubuntu";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 3rem;
+  line-height: 3rem;
+  /* identical to box height, or 75% */
+
+  // text-align: center;
+  // text-shadow: 5px 5px 8px #000000;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+
+  color: #ffffff;
+}
+
+.card-subtitle {
+  font-family: "Ubuntu";
+  font-style: italic;
+  font-weight: 400;
+  font-size: 2rem;
+  line-height: 2rem;
+  /* identical to box height, or 100% */
+
+  // text-align: center;
+  // text-shadow: 5px 5px 8px #000000;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  color: #ffffff;
+  mix-blend-mode: normal;
+  opacity: 0.7;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+.card-sightings {
+  margin-bottom: 4rem;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 2rem;
+  width: 10rem;
+  height: 3rem;
+
+  font-family: "Ubuntu";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 12px;
+  color: #ffffff;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

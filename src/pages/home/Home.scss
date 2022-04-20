@@ -50,12 +50,47 @@
   font-weight: 300;
   font-size: 18px;
   line-height: 18px;
-  padding: 2rem;
-
+  padding: 2rem 5rem 2rem 2rem;
   color: #949ea0;
+  background: #ffffff;
+  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
 }
 
 .hero-input:active,
 .hero-input:focus {
   outline: none;
+}
+
+.hero-input-container {
+  position: relative;
+}
+
+.hero-search-icon {
+  position: absolute;
+  top: 50%;
+  right: 4%;
+  transform: translate(0, -50%);
+}
+
+.cards-container {
+  background-color: white;
+  margin-top: 9rem;
+  margin-left: 2rem;
+  margin-right: 2rem;
+  margin-bottom: 2rem;
+  // height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 2rem;
+
+  @media screen and (max-width: 1100px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media screen and (max-width: 850px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media screen and (max-width: 650px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }

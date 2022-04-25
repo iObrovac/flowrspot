@@ -1,0 +1,134 @@
+.overlay {
+  background-color: rgba(0, 0, 0, 0.65);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-container {
+  background-color: #ffffff;
+  width: 44rem;
+  height: 30rem;
+  z-index: 1000;
+  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  h1 {
+    font-family: "Ubuntu";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 20px;
+    text-align: center;
+    color: #334144;
+    margin-bottom: 3rem;
+  }
+}
+
+.email-container {
+  background-color: #f5f6f7;
+  border: 1px solid #dfe5ea;
+  border-radius: 3px;
+  height: 5rem;
+  width: 38rem;
+  margin-bottom: 1rem;
+
+  h5 {
+    font-family: "Ubuntu";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 10px;
+    color: #949ea0;
+    margin-left: 1.5rem;
+    margin-top: 1rem;
+  }
+}
+
+.email-container:hover .input-field {
+  background-color: #d8dcdc;
+  border-radius: 5px;
+}
+
+.password-container:hover .input-field {
+  background-color: #d8dcdc;
+  border-radius: 5px;
+}
+
+.input-field {
+  background: #f5f6f7;
+  border: none;
+  margin-left: 1.5rem;
+  margin-top: 0.5rem;
+  height: 2rem;
+  width: 92%;
+
+  font-family: "Ubuntu";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 13px;
+  /* identical to box height, or 100% */
+
+  color: #334144 !important;
+}
+
+.input-field:active,
+.input-field:focus {
+  outline: none;
+  border: none;
+}
+
+.password-container {
+  background-color: #f5f6f7;
+  border: 1px solid #dfe5ea;
+  border-radius: 3px;
+  height: 5rem;
+  width: 38rem;
+  margin-bottom: 2rem;
+
+  h5 {
+    font-family: "Ubuntu";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 10px;
+    color: #949ea0;
+    margin-left: 1.5rem;
+    margin-top: 1rem;
+  }
+}
+
+.login-btn {
+  background: linear-gradient(270deg, #ecbcb3 0%, #eaa79e 100%);
+  box-shadow: 0px 15px 20px rgba(234, 168, 159, 0.2);
+  border-radius: 3px;
+  width: 38rem;
+  height: 5rem;
+
+  font-family: "Ubuntu";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 14px;
+  /* identical to box height, or 100% */
+
+  text-align: center;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+}

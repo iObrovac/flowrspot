@@ -7,6 +7,8 @@ export default function Home() {
   const [currentData, setCurrentData] = useState([]);
   const [input, setInput] = useState("");
 
+  // console.log(currentData);
+
   useEffect(() => {
     fetch(
       `https://flowrspot-api.herokuapp.com/api/v1/flowers/search?query=${input}`
@@ -14,9 +16,6 @@ export default function Home() {
       .then((res) => res.json())
       .then((res) => setCurrentData(res.flowers));
   }, [input]);
-
-  console.log(input);
-  console.log(currentData);
 
   return (
     <div>

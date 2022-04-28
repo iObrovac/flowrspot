@@ -1,4 +1,5 @@
 .nav {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -21,6 +22,18 @@
   }
 }
 
+// @media screen and (max-width: 850px) {
+//   .link-container {
+//     display: flex;
+//     flex-direction: column-reverse;
+//   }
+
+//   .link-container div {
+//     display: flex;
+//     flex-direction: column;
+//   }
+// }
+
 .logo-1 {
   margin-right: 2rem;
   margin-left: 2rem;
@@ -39,4 +52,86 @@
 
 .nav-links {
   color: #949ea0;
+}
+
+.mobile-navigation {
+  display: none;
+}
+
+@media screen and (max-width: 850px) {
+  .navigation {
+    display: none;
+  }
+
+  .mobile-navigation {
+    display: flex;
+    align-items: center;
+  }
+
+  .burger {
+    margin-right: 15px;
+    cursor: pointer;
+  }
+
+  .link-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 100%;
+    background-color: #eee1e1;
+    border-top: 3px solid #df9186;
+    border-bottom: 3px solid #df9186;
+    margin: 0;
+    height: 50rem;
+    z-index: 999;
+    transition: transform 400ms;
+
+    & a {
+      margin: 0 0 3rem 0;
+      height: 4rem;
+      width: 14rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.3s;
+      border-radius: 50px;
+    }
+
+    & a:hover,
+    a:active,
+    a:focus {
+      background: linear-gradient(270deg, #ecbcb3 0%, #eaa79e 100%);
+      box-shadow: 0px 15px 20px rgba(234, 168, 159, 0.2);
+      color: #ffffff;
+    }
+
+    & div button {
+      margin-bottom: 3rem;
+      height: 4rem;
+      width: 14rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.3s;
+      border-radius: 50px;
+    }
+
+    & div button:hover {
+      background: linear-gradient(270deg, #ecbcb3 0%, #eaa79e 100%);
+      box-shadow: 0px 15px 20px rgba(234, 168, 159, 0.2);
+      color: #ffffff;
+    }
+  }
+  .link-container--hide {
+    transform: translateX(100%);
+  }
+
+  .link-container div {
+    display: flex;
+    flex-direction: column;
+  }
 }

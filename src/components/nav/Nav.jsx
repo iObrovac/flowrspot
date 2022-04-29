@@ -12,6 +12,9 @@ export default function Nav() {
   const [openModal, setOpenLogin] = useState(false);
   const [openNewAcc, setOpenNewAcc] = useState(false);
 
+  const openLogin = () => setOpenLogin(true);
+  const openAcc = () => setOpenNewAcc(true);
+
   return (
     <div className="nav">
       <div className="logo-container">
@@ -21,14 +24,8 @@ export default function Nav() {
         </Link>
       </div>
 
-      <Navigation
-        openLogin={() => setOpenLogin(true)}
-        openNewAcc={() => setOpenNewAcc(true)}
-      />
-      <MobileNavigation
-        openLogin={() => setOpenLogin(true)}
-        openNewAcc={() => setOpenNewAcc(true)}
-      />
+      <Navigation openLogin={openLogin} openNewAcc={openAcc} />
+      <MobileNavigation openLogin={openLogin} openNewAcc={openAcc} />
       <LoginModal open={openModal} onClose={() => setOpenLogin(false)} />
       <NewAccModal open={openNewAcc} onClose={() => setOpenNewAcc(false)} />
     </div>

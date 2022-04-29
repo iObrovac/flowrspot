@@ -8,7 +8,6 @@ export default function Auth({ closeMobile, openLogin, openNewAcc }) {
         <button
           className="login"
           onClick={() => {
-            console.log("stiso login");
             openLogin();
             closeMobile();
           }}
@@ -18,7 +17,6 @@ export default function Auth({ closeMobile, openLogin, openNewAcc }) {
         <button
           className="new-acc"
           onClick={() => {
-            console.log("stiso new-acc");
             openNewAcc();
             closeMobile();
           }}

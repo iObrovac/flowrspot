@@ -2,12 +2,11 @@ import React, { useState, useEffect } from "react";
 import "./Home.scss";
 import icon from "../../media/img/icon-search.svg";
 import Card from "../../components/card/Card";
+import axios from "axios";
 
 export default function Home() {
   const [currentData, setCurrentData] = useState([]);
   const [input, setInput] = useState("");
-
-  // console.log(currentData);
 
   useEffect(() => {
     fetch(

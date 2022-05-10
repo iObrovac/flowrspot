@@ -8,6 +8,7 @@ export default function NavLinks({
   closeMobile = () => {},
   openLogin,
   openNewAcc,
+  openLogoutModal,
 }) {
   return (
     <div className={`link-container ${hide && "link-container--hide"}`}>
@@ -23,6 +24,7 @@ export default function NavLinks({
       <Auth
         openNewAcc={openNewAcc}
         openLogin={openLogin}
+        openLogoutModal={openLogoutModal}
         closeMobile={closeMobile}
       />
     </div>

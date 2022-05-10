@@ -57,6 +57,32 @@
   border-radius: 3px;
 }
 
+@media screen and (max-width: 850px) {
+  .hero-input {
+    min-width: 40rem;
+  }
+  .hero-title {
+    font-size: 3rem;
+  }
+  .hero-subtitle {
+    font-size: 1.4rem;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .hero-input {
+    min-width: 30rem;
+    height: 5rem;
+    font-size: 1.2rem;
+  }
+  .hero-title {
+    font-size: 2rem;
+  }
+  .hero-subtitle {
+    font-size: 1.2rem;
+  }
+}
+
 .hero-input:active,
 .hero-input:focus {
   outline: none;

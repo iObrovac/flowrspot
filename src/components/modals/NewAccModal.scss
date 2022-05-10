@@ -102,7 +102,6 @@
     font-weight: 400;
     font-size: 13px;
     line-height: 13px;
-    /* identical to box height, or 100% */
 
     color: #334144 !important;
   }
@@ -196,4 +195,29 @@
   text-align: center;
 
   color: #ffffff;
+}
+
+@media screen and (max-width: 450px) {
+  .modal-cont {
+    width: 28rem;
+  }
+
+  .name-cont,
+  .last-cont {
+    width: 12rem;
+    & input {
+      max-width: 10rem;
+    }
+  }
+
+  .dob-cont,
+  .email-cont,
+  .pass-cont,
+  .create-acc {
+    width: 25rem;
+  }
+
+  .input-field {
+    width: 22rem;
+  }
 }

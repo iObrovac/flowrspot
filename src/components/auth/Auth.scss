@@ -24,3 +24,12 @@
   cursor: pointer;
   margin-right: 2rem;
 }
+
+@media screen and (max-width: 850px) {
+  .login {
+    margin: 0;
+  }
+  .new-acc {
+    margin: 0;
+  }
+}

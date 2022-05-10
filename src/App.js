@@ -1,5 +1,5 @@
 import "./App.scss";
-import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/home/Home";
 import Flowers from "./pages/flowers/Flowers";
 import Sightings from "./pages/sightings/Sightings";
@@ -18,6 +18,8 @@ function App() {
           <Route path="/favorites" element={<Favorites />} />
         </Routes>
       </BrowserRouter>
+
+      <button className="proba-btn">proba</button>
     </div>
   );
 }

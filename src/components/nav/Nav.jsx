@@ -1,11 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Nav.scss";
 import logo1 from "../../media/img/flower.svg";
 import logo2 from "../../media/img/flower-text.svg";
-import Auth from "../auth/Auth";
+import Navigation from "./Navigation";
+import MobileNavigation from "./MobileNavigation";
+import LoginModal from "../modals/LoginModal";
+import NewAccModal from "../modals/NewAccModal";
 
 export default function Nav() {
+  const [openModal, setOpenLogin] = useState(false);
+  const [openNewAcc, setOpenNewAcc] = useState(false);
+
+  const openLogin = () => setOpenLogin(true);
+  const openAcc = () => setOpenNewAcc(true);
+
   return (
     <div className="nav">
       <div className="logo-container">
@@ -14,18 +23,11 @@ export default function Nav() {
           <img className="logo-2" src={logo2} alt="logo-2" />
         </Link>
       </div>
-      <div className="link-container">
-        <Link to="/flowers" className="nav-links">
-          Flowers
-        </Link>
-        <Link to="/sightings" className="nav-links">
-          Latest Sightings
-        </Link>
-        <Link to="/favorites" className="nav-links">
-          Favorites
-        </Link>
-        <Auth />
-      </div>
+
+      <Navigation openLogin={openLogin} openNewAcc={openAcc} />
+      <MobileNavigation openLogin={openLogin} openNewAcc={openAcc} />
+      <LoginModal open={openModal} onClose={() => setOpenLogin(false)} />
+      <NewAccModal open={openNewAcc} onClose={() => setOpenNewAcc(false)} />
     </div>
   );
 }

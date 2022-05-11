@@ -15,7 +15,7 @@ export default function Auth({
     return (
       <div className="user-container" onClick={openLogoutModal}>
         <span className="name-plate">
-          {userData?.name} {userData?.lastName}
+          {userData.name} {userData.lastName}
         </span>
         <img src={icon} alt="Profile Icon" className="profile-icon" />
       </div>

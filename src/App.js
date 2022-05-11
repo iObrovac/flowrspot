@@ -29,6 +29,7 @@ function App() {
         name: response.data.user.first_name,
         lastName: response.data.user.last_name,
       });
+      setLoggedIn(true);
     } catch (err) {
       console.log(err);
     }
@@ -37,7 +38,6 @@ function App() {
   useEffect(() => {
     if (localStorage.getItem("token")) {
       fetchData();
-      setLoggedIn(true);
     }
   }, []);
 

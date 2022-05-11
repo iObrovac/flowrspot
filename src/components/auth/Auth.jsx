@@ -11,39 +11,38 @@ export default function Auth({
 }) {
   const { loggedIn, setLoggedIn, userData } = useContext(UserContext);
 
-  if (loggedIn) {
+  if (loggedIn)
     return (
       <div className="user-container" onClick={openLogoutModal}>
         <span className="name-plate">
-          {userData.name} {userData.lastName}
+          {userData?.name} {userData?.lastName}
         </span>
         <img src={icon} alt="Profile Icon" className="profile-icon" />
       </div>
     );
-  } else {
-    return (
-      <>
-        <div>
-          <button
-            className="login"
-            onClick={() => {
-              openLogin();
-              closeMobile();
-            }}
-          >
-            Login
-          </button>
-          <button
-            className="new-acc"
-            onClick={() => {
-              openNewAcc();
-              closeMobile();
-            }}
-          >
-            New Account
-          </button>
-        </div>
-      </>
-    );
-  }
+
+  return (
+    <>
+      <div>
+        <button
+          className="login"
+          onClick={() => {
+            openLogin();
+            closeMobile();
+          }}
+        >
+          Login
+        </button>
+        <button
+          className="new-acc"
+          onClick={() => {
+            openNewAcc();
+            closeMobile();
+          }}
+        >
+          New Account
+        </button>
+      </div>
+    </>
+  );
 }

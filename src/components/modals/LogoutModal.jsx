@@ -31,14 +31,18 @@ function LogoutModal({ open, onClose }) {
           <h5>Last Name</h5>
           <h3>{userData.lastName}</h3>
         </div>
-        <div className="logout-dob">
-          <h5>Date of Birth</h5>
-          <h3>{new Date(userData.dob).toDateString()}</h3>
-        </div>
-        <div className="logout-email">
-          <h5>Email Address</h5>
-          <h3>{userData.email}</h3>
-        </div>
+        {userData?.dob && (
+          <div className="logout-dob">
+            <h5>Date of Birth</h5>
+            <h3>{new Date(userData.dob).toDateString()}</h3>
+          </div>
+        )}
+        {userData?.email && (
+          <div className="logout-email">
+            <h5>Email Address</h5>
+            <h3>{userData.email}</h3>
+          </div>
+        )}
         <button
           className="logout-btn"
           onClick={() => {

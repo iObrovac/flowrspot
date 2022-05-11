@@ -7,13 +7,16 @@ import Navigation from "./Navigation";
 import MobileNavigation from "./MobileNavigation";
 import LoginModal from "../modals/LoginModal";
 import NewAccModal from "../modals/NewAccModal";
+import LogoutModal from "../modals/LogoutModal";
 
 export default function Nav() {
   const [openModal, setOpenLogin] = useState(false);
   const [openNewAcc, setOpenNewAcc] = useState(false);
+  const [openLogout, setOpenLogout] = useState(false);
 
   const openLogin = () => setOpenLogin(true);
   const openAcc = () => setOpenNewAcc(true);
+  const openLogoutModal = () => setOpenLogout(true);
 
   return (
     <div className="nav">
@@ -24,10 +27,15 @@ export default function Nav() {
         </Link>
       </div>
 
-      <Navigation openLogin={openLogin} openNewAcc={openAcc} />
+      <Navigation
+        openLogin={openLogin}
+        openNewAcc={openAcc}
+        openLogoutModal={openLogoutModal}
+      />
       <MobileNavigation openLogin={openLogin} openNewAcc={openAcc} />
       <LoginModal open={openModal} onClose={() => setOpenLogin(false)} />
       <NewAccModal open={openNewAcc} onClose={() => setOpenNewAcc(false)} />
+      <LogoutModal open={openLogout} onClose={() => setOpenLogout(false)} />
     </div>
   );
 }

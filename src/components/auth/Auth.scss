@@ -25,6 +25,29 @@
   margin-right: 2rem;
 }
 
+.name-plate {
+  font-family: "Ubuntu";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 14px;
+  // text-align: right;
+  margin-right: 2rem;
+  color: #949ea0;
+}
+
+.profile-icon {
+  margin-right: 2rem;
+  border-radius: 50%;
+}
+
+.user-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
 @media screen and (max-width: 850px) {
   .login {
     margin: 0;

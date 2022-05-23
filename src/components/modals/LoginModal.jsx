@@ -1,5 +1,5 @@
-import axios from "axios";
 import React, { useContext, useState } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../App";
 import "./LoginModal.scss";
@@ -31,9 +31,6 @@ export default function LoginModal({ open, onClose }) {
       setLoggedIn(true);
       onClose();
       localStorage.setItem("token", response.data.auth_token);
-
-      console.log(response.statusText);
-      console.log(response.data.auth_token);
     } catch (err) {
       console.log(err.response.data.error);
     }
@@ -43,7 +40,7 @@ export default function LoginModal({ open, onClose }) {
     //////////// GIVE ME DATA ABOUT THE USER /////////////////////
 
     try {
-      const data = await axios.get(
+      const personal = await axios.get(
         "https://flowrspot-api.herokuapp.com/api/v1/users/me",
         {
           headers: {
@@ -52,11 +49,9 @@ export default function LoginModal({ open, onClose }) {
         }
       );
 
-      // console.log(data);
-
       setUserData({
-        name: data.data.user.first_name,
-        lastName: data.data.user.last_name,
+        name: personal.data.user.first_name,
+        lastName: personal.data.user.last_name,
         dob: new Date().toDateString(), // there is no dob field in the response
         email: values.email,
         password: values.password,

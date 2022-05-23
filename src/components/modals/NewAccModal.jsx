@@ -1,5 +1,5 @@
-import axios from "axios";
 import React, { useState, useContext } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { UserContext, UserData } from "../../App";
 import "./NewAccModal.scss";
@@ -20,7 +20,6 @@ export default function NewAccModal({ open, onClose }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // values.dob = new Date(values.dob).toDateString();
 
     console.log(values);
 
@@ -55,6 +54,11 @@ export default function NewAccModal({ open, onClose }) {
 
   if (!open) return null;
 
+  function onChangeInput(e) {
+    const { name, value } = e.target;
+    setValues((prevState) => ({ ...prevState, [name]: value }));
+  }
+
   return (
     <div className="over" onClick={onClose}>
       <form
@@ -72,19 +76,19 @@ export default function NewAccModal({ open, onClose }) {
             <input
               type="text"
               placeholder="Fox"
+              name="name"
               value={values.name}
-              onChange={(e) => setValues({ ...values, name: e.target.value })}
+              onChange={onChangeInput}
             />
           </div>
           <div className="last-cont">
             <h5>Last Name</h5>
             <input
               type="text"
+              name="lastName"
               placeholder="Mulder"
               value={values.lastName}
-              onChange={(e) =>
-                setValues({ ...values, lastName: e.target.value })
-              }
+              onChange={onChangeInput}
             />
           </div>
         </div>
@@ -92,31 +96,29 @@ export default function NewAccModal({ open, onClose }) {
           <h5>Date of Birth</h5>
           <input
             type="date"
+            name="dob"
             value={values.dob}
-            onChange={(e) =>
-              setValues({
-                ...values,
-                dob: e.target.value,
-              })
-            }
+            onChange={onChangeInput}
           />
         </div>
         <div className="email-cont">
           <h5>Email Address</h5>
           <input
             type="email"
+            name="email"
             placeholder="fake@mail.com"
             value={values.email}
-            onChange={(e) => setValues({ ...values, email: e.target.value })}
+            onChange={onChangeInput}
           />
         </div>
         <div className="pass-cont">
           <h5>Password</h5>
           <input
             type="password"
+            name="password"
             placeholder="mockPassword"
             value={values.password}
-            onChange={(e) => setValues({ ...values, password: e.target.value })}
+            onChange={onChangeInput}
           />
         </div>
         <button className="create-acc">Create Account</button>

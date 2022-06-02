@@ -2,14 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Auth from "../auth/Auth";
 import "./Nav.scss";
+import { INavigationProps } from "../../Types/INav";
 
-export default function NavLinks({
+const NavLinks: React.FC<INavigationProps> = ({
   hide = false,
   closeMobile = () => {},
   openLogin,
   openNewAcc,
   openLogoutModal,
-}) {
+}): JSX.Element => {
   return (
     <div className={`link-container ${hide && "link-container--hide"}`}>
       <Link onClick={closeMobile} to="/flowers" className="nav-links">
@@ -29,4 +30,6 @@ export default function NavLinks({
       />
     </div>
   );
-}
+};
+
+export default NavLinks;

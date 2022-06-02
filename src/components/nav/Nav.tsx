@@ -9,14 +9,14 @@ import LoginModal from "../modals/LoginModal";
 import NewAccModal from "../modals/NewAccModal";
 import LogoutModal from "../modals/LogoutModal";
 
-export default function Nav() {
-  const [openModal, setOpenLogin] = useState(false);
-  const [openNewAcc, setOpenNewAcc] = useState(false);
-  const [openLogout, setOpenLogout] = useState(false);
+const Nav: React.FC = (): JSX.Element => {
+  const [openModal, setOpenLogin] = useState<boolean>(false);
+  const [openNewAcc, setOpenNewAcc] = useState<boolean>(false);
+  const [openLogout, setOpenLogout] = useState<boolean>(false);
 
-  const openLogin = () => setOpenLogin(true);
-  const openAcc = () => setOpenNewAcc(true);
-  const openLogoutModal = () => setOpenLogout(true);
+  const openLogin: () => void = () => setOpenLogin(true);
+  const openAcc: () => void = () => setOpenNewAcc(true);
+  const openLogoutModal: () => void = () => setOpenLogout(true);
 
   return (
     <div className="nav">
@@ -38,4 +38,6 @@ export default function Nav() {
       <LogoutModal open={openLogout} onClose={() => setOpenLogout(false)} />
     </div>
   );
-}
+};
+
+export default Nav;

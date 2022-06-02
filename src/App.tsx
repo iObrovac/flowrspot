@@ -7,16 +7,17 @@ import Sightings from "./pages/sightings/Sightings";
 import Favorites from "./pages/favorites/Favorites";
 import Nav from "./components/nav/Nav";
 import axios from "axios";
+import { IContext, IUserData, IReturnValue } from "../src/Types/IApp";
 
-export const UserContext = createContext();
+export const UserContext = createContext<IContext>(null);
 
-function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [userData, setUserData] = useState();
+const App: React.FC = (): JSX.Element => {
+  const [loggedIn, setLoggedIn] = useState<boolean>(false);
+  const [userData, setUserData] = useState<IUserData>();
 
-  const fetchData = async () => {
+  const fetchData = async (): Promise<void> => {
     try {
-      const response = await axios.get(
+      const response = await axios.get<IReturnValue>(
         "https://flowrspot-api.herokuapp.com/api/v1/users/me",
         {
           headers: {
@@ -51,13 +52,13 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/flowers" element={<Flowers />} />
-            <Route path="/sightings" element={<Sightings />} />
+            <Route path="/Sightings" element={<Sightings />} />
             <Route path="/favorites" element={<Favorites />} />
           </Routes>
         </BrowserRouter>
       </UserContext.Provider>
     </div>
   );
-}
+};
 
 export default App;

@@ -1,8 +1,13 @@
 import React from "react";
 import NavLinks from "./NavLinks";
 import "./Nav.scss";
+import { INavigationProps } from "../../Types/INav";
 
-export default function Navigation({ openLogin, openNewAcc, openLogoutModal }) {
+const Navigation: React.FC<INavigationProps> = ({
+  openLogin,
+  openNewAcc,
+  openLogoutModal,
+}): JSX.Element => {
   return (
     <nav className="navigation">
       <NavLinks
@@ -12,4 +17,6 @@ export default function Navigation({ openLogin, openNewAcc, openLogoutModal }) {
       />
     </nav>
   );
-}
+};
+
+export default Navigation;

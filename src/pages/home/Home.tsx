@@ -3,17 +3,26 @@ import "./Home.scss";
 import icon from "../../media/img/icon-search.svg";
 import Card from "../../components/card/Card";
 import axios from "axios";
+import { IExampleFlower, IFlowers } from "../../Types/IHome";
 
-export default function Home() {
-  const [currentData, setCurrentData] = useState([]);
-  const [input, setInput] = useState("");
+const Home: React.FC = (): JSX.Element => {
+  const [currentData, setCurrentData] = useState<IExampleFlower[]>([]);
+  const [input, setInput] = useState<string>("");
+
+  const fetchFlowers = async (): Promise<void> => {
+    try {
+      const response = await axios.get<IFlowers>(
+        `https://flowrspot-api.herokuapp.com/api/v1/flowers/search?query=${input}`
+      );
+
+      setCurrentData(response.data.flowers);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   useEffect(() => {
-    fetch(
-      `https://flowrspot-api.herokuapp.com/api/v1/flowers/search?query=${input}`
-    )
-      .then((res) => res.json())
-      .then((res) => setCurrentData(res.flowers));
+    fetchFlowers();
   }, [input]);
 
   return (
@@ -36,10 +45,17 @@ export default function Home() {
       </div>
 
       <div className="cards-container">
-        {currentData.map((flowerData, index) => (
-          <Card flowerData={flowerData} key={index} />
-        ))}
+        {!!currentData &&
+          currentData.map((flowerData, index) => (
+            <Card
+              flowerData={flowerData}
+              key={index}
+              refreshFavorites={() => {}}
+            />
+          ))}
       </div>
     </div>
   );
-}
+};
+
+export default Home;

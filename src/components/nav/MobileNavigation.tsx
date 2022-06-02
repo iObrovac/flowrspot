@@ -4,12 +4,16 @@ import "./Nav.scss";
 import { CgMenuRound } from "react-icons/cg";
 import { FaWindowClose } from "react-icons/fa";
 import { useState } from "react";
+import { INavigationProps } from "../../Types/INav";
 
-export default function MobileNavigation({ openLogin, openNewAcc }) {
-  const [open, setOpen] = useState(false);
+const MobileNavigation: React.FC<INavigationProps> = ({
+  openLogin,
+  openNewAcc,
+}): JSX.Element => {
+  const [open, setOpen] = useState<boolean>(false);
 
-  const closeMobile = () => setOpen(false);
-  const toggleOpen = () => setOpen(!open);
+  const closeMobile: () => void = () => setOpen(false);
+  const toggleOpen: () => void = () => setOpen(!open);
 
   const burgerIcon = (
     <CgMenuRound
@@ -38,4 +42,6 @@ export default function MobileNavigation({ openLogin, openNewAcc }) {
       />
     </nav>
   );
-}
+};
+
+export default MobileNavigation;

@@ -2,9 +2,11 @@ import React, { useContext } from "react";
 import { UserContext } from "../../App";
 import profilePic from "../../media/img/profile-picture-2.png";
 import "./LogoutModal.scss";
+import { IModalProps } from "../../Types/IModals";
+import { IContext } from "../../Types/IApp";
 
-function LogoutModal({ open, onClose }) {
-  const { userData, setLoggedIn } = useContext(UserContext);
+const LogoutModal: React.FC<IModalProps> = ({ open, onClose }): JSX.Element => {
+  const { userData, setLoggedIn } = useContext<IContext>(UserContext);
 
   if (!open) return null;
 
@@ -56,6 +58,6 @@ function LogoutModal({ open, onClose }) {
       </div>
     </div>
   );
-}
+};
 
 export default LogoutModal;

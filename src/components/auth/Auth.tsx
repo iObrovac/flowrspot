@@ -1,15 +1,17 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { UserContext } from "../../App";
 import icon from "../../media/img/profile-picture.png";
 import "./Auth.scss";
+import { INavigationProps } from "../../Types/INav";
+import { IContext } from "../../Types/IApp";
 
-export default function Auth({
+const Auth: React.FC<INavigationProps> = ({
   closeMobile,
   openLogin,
   openNewAcc,
   openLogoutModal,
-}) {
-  const { loggedIn, setLoggedIn, userData } = useContext(UserContext);
+}): JSX.Element => {
+  const { loggedIn, userData } = useContext<IContext>(UserContext);
 
   if (loggedIn)
     return (
@@ -45,4 +47,6 @@ export default function Auth({
       </div>
     </>
   );
-}
+};
+
+export default Auth;

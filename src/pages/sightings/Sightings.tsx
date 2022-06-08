@@ -10,7 +10,7 @@ export default function Sightings(): JSX.Element {
   const getSightings = async (): Promise<void> => {
     try {
       const response = await axios.get<IReturnValues>(
-        `https://flowrspot-api.herokuapp.com/api/v1/sightings?page=7`,
+        `https://flowrspot-api.herokuapp.com/api/v1/sightings?page=6`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,

@@ -3,22 +3,28 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../App";
 import "./LoginModal.scss";
+import { IModalProps } from "../../Types/IModals";
+import { IContext } from "../../Types/IApp";
+import { IRegisterReturn } from "../../Types/IModals";
+import { IUserLoginData, IGetMyPersonalData } from "../../Types/IModals";
 
-export default function LoginModal({ open, onClose }) {
-  const [values, setValues] = useState({
+const LoginModal: React.FC<IModalProps> = ({ open, onClose }): JSX.Element => {
+  const [values, setValues] = useState<IUserLoginData>({
     email: "",
     password: "",
   });
 
-  const { loggedIn, setLoggedIn, setUserData } = useContext(UserContext);
+  const { setLoggedIn, setUserData } = useContext<IContext>(UserContext);
   let navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (
+    e: React.FormEvent<HTMLFormElement>
+  ): Promise<void> => {
     e.preventDefault();
     console.log(values);
 
     try {
-      const response = await axios.post(
+      const response = await axios.post<IRegisterReturn>(
         "https://flowrspot-api.herokuapp.com/api/v1/users/login",
         JSON.stringify({
           email: values.email,
@@ -28,6 +34,7 @@ export default function LoginModal({ open, onClose }) {
           headers: { "Content-Type": "application/json" },
         }
       );
+
       setLoggedIn(true);
       onClose();
       localStorage.setItem("token", response.data.auth_token);
@@ -40,7 +47,7 @@ export default function LoginModal({ open, onClose }) {
     //////////// GIVE ME DATA ABOUT THE USER /////////////////////
 
     try {
-      const personal = await axios.get(
+      const personal = await axios.get<IGetMyPersonalData>(
         "https://flowrspot-api.herokuapp.com/api/v1/users/me",
         {
           headers: {
@@ -97,4 +104,6 @@ export default function LoginModal({ open, onClose }) {
       </form>
     </div>
   );
-}
+};
+
+export default LoginModal;

@@ -1,11 +1,13 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { UserContext, UserData } from "../../App";
+import { UserContext } from "../../App";
 import "./NewAccModal.scss";
+import { IUserData, IContext } from "../../Types/IApp";
+import { IModalProps, IRegisterReturn } from "../../Types/IModals";
 
-export default function NewAccModal({ open, onClose }) {
-  const [values, setValues] = useState({
+const NewAccModal: React.FC<IModalProps> = ({ open, onClose }): JSX.Element => {
+  const [values, setValues] = useState<IUserData>({
     name: "",
     lastName: "",
     dob: "",
@@ -13,18 +15,19 @@ export default function NewAccModal({ open, onClose }) {
     password: "",
   });
 
-  const { loggedIn, setLoggedIn, userData, setUserData } =
-    useContext(UserContext);
+  const { setLoggedIn, setUserData } = useContext<IContext>(UserContext);
 
   let navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (
+    e: React.FormEvent<HTMLFormElement>
+  ): Promise<void> => {
     e.preventDefault();
 
     console.log(values);
 
     try {
-      const response = await axios.post(
+      const response = await axios.post<IRegisterReturn>(
         "https://flowrspot-api.herokuapp.com/api/v1/users/register",
         JSON.stringify({
           email: values.email,
@@ -37,16 +40,13 @@ export default function NewAccModal({ open, onClose }) {
           headers: { "Content-Type": "application/json" },
         }
       );
+      console.log(response);
       setLoggedIn(true);
       onClose();
       setUserData(values);
 
       localStorage.setItem("token", response.data.auth_token);
       navigate("/flowers");
-
-      // console.log(response.statusText);
-      // console.log(response.data.auth_token);
-      // console.log(new Date().toDateString());
     } catch (err) {
       console.log(err.response.data.error);
     }
@@ -54,10 +54,10 @@ export default function NewAccModal({ open, onClose }) {
 
   if (!open) return null;
 
-  function onChangeInput(e) {
-    const { name, value } = e.target;
+  const onChangeInput = (e: React.FormEvent<HTMLInputElement>) => {
+    const { name, value } = e.currentTarget;
     setValues((prevState) => ({ ...prevState, [name]: value }));
-  }
+  };
 
   return (
     <div className="over" onClick={onClose}>
@@ -125,4 +125,6 @@ export default function NewAccModal({ open, onClose }) {
       </form>
     </div>
   );
-}
+};
+
+export default NewAccModal;

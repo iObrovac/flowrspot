@@ -1,0 +1,123 @@
+.sighting-image {
+  background-size: cover;
+  background-position: top;
+  background-repeat: no-repeat;
+  height: 30rem;
+  position: relative;
+}
+
+.sighting-location {
+  display: flex;
+  position: absolute;
+  left: 2rem;
+  top: 2rem;
+  background-color: white;
+  border-radius: 2rem;
+  padding: 5px;
+
+  img {
+    margin-right: 1rem;
+    margin-left: 0.5rem;
+  }
+  h4 {
+    font-family: "Ubuntu";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 12px;
+    color: #df9186;
+    margin-right: 0.5rem;
+  }
+}
+
+.sighting-user-container {
+  display: flex;
+  align-items: center;
+
+  img {
+    margin: 2rem;
+    width: 4rem;
+    height: 4rem;
+  }
+
+  h1 {
+    font-family: "Ubuntu";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 15px;
+    color: #334144;
+  }
+  h3 {
+    font-family: "Ubuntu";
+    font-style: italic;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 12px;
+    color: #949ea0;
+    margin-top: 0.5rem;
+  }
+}
+
+.sighting-description {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  text-align: justify;
+  letter-spacing: 0.075em;
+  color: #949ea0;
+  margin-left: 2rem;
+  margin-right: 2rem;
+  margin-bottom: 2rem;
+  height: 17rem;
+  overflow: auto;
+}
+
+.sighting-bottom {
+  margin-left: 2rem;
+  margin-right: 2rem;
+  margin-bottom: 2rem;
+  padding-top: 2rem;
+
+  border-top: 1px solid #e8e9ed;
+  display: flex;
+  justify-content: space-around;
+}
+
+.sighting-comments {
+  display: flex;
+  img {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 1rem;
+  }
+  h3 {
+    font-family: "Ubuntu";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 12px;
+    text-align: justify;
+    color: #949ea0;
+  }
+}
+
+.sighting-favorites {
+  display: flex;
+  img {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 1rem;
+  }
+  h3 {
+    font-family: "Ubuntu";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 12px;
+    text-align: justify;
+    color: #949ea0;
+  }
+}

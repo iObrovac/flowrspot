@@ -5,6 +5,9 @@ import { UserContext } from "../../App";
 import "./NewAccModal.scss";
 import { IUserData, IContext } from "../../Types/IApp";
 import { IModalProps, IRegisterReturn } from "../../Types/IModals";
+import { useDispatch } from "react-redux";
+import { actionCreators } from "../../state";
+import { bindActionCreators } from "redux";
 
 const NewAccModal: React.FC<IModalProps> = ({ open, onClose }): JSX.Element => {
   const [values, setValues] = useState<IUserData>({
@@ -17,7 +20,10 @@ const NewAccModal: React.FC<IModalProps> = ({ open, onClose }): JSX.Element => {
 
   const { setLoggedIn, setUserData } = useContext<IContext>(UserContext);
 
-  let navigate = useNavigate();
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+  const { updateUserData } = bindActionCreators(actionCreators, dispatch);
 
   const handleSubmit = async (
     e: React.FormEvent<HTMLFormElement>
@@ -40,10 +46,20 @@ const NewAccModal: React.FC<IModalProps> = ({ open, onClose }): JSX.Element => {
           headers: { "Content-Type": "application/json" },
         }
       );
-      console.log(response);
+      console.log("RESPONSE: ", response);
       setLoggedIn(true);
       onClose();
       setUserData(values);
+
+      console.log("VALUES: ", values);
+
+      updateUserData({
+        date_of_birth: values.dob,
+        email: values.email,
+        password: values.password,
+        first_name: values.name,
+        last_name: values.lastName,
+      });
 
       localStorage.setItem("token", response.data.auth_token);
       navigate("/flowers");

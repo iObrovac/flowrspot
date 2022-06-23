@@ -7,6 +7,7 @@ import { IModalProps } from "../../Types/IModals";
 import { IContext } from "../../Types/IApp";
 import { IRegisterReturn } from "../../Types/IModals";
 import { IUserLoginData, IGetMyPersonalData } from "../../Types/IModals";
+import { getDataAboutTheUser, loginUser } from "../services/api";
 
 const LoginModal: React.FC<IModalProps> = ({ open, onClose }): JSX.Element => {
   const [values, setValues] = useState<IUserLoginData>({
@@ -24,16 +25,20 @@ const LoginModal: React.FC<IModalProps> = ({ open, onClose }): JSX.Element => {
     console.log(values);
 
     try {
-      const response = await axios.post<IRegisterReturn>(
-        "https://flowrspot-api.herokuapp.com/api/v1/users/login",
-        JSON.stringify({
-          email: values.email,
-          password: values.password,
-        }),
-        {
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      // THIS ONE DOESN'T WORK !!! \/ \/ \/
+      const response = await loginUser(values);
+      console.log(response);
+
+      // const response = await axios.post<IRegisterReturn>(
+      //   "https://flowrspot-api.herokuapp.com/api/v1/users/login",
+      //   JSON.stringify({
+      //     email: values.email,
+      //     password: values.password,
+      //   }),
+      //   {
+      //     headers: { "Content-Type": "application/json" },
+      //   }
+      // );
 
       setLoggedIn(true);
       onClose();
@@ -47,14 +52,16 @@ const LoginModal: React.FC<IModalProps> = ({ open, onClose }): JSX.Element => {
     //////////// GIVE ME DATA ABOUT THE USER /////////////////////
 
     try {
-      const personal = await axios.get<IGetMyPersonalData>(
-        "https://flowrspot-api.herokuapp.com/api/v1/users/me",
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const personal = await getDataAboutTheUser();
+      console.log("PERSONAL: ", personal);
+      // axios.get<IGetMyPersonalData>(
+      //   "https://flowrspot-api.herokuapp.com/api/v1/users/me",
+      //   {
+      //     headers: {
+      //       Authorization: `Bearer ${localStorage.getItem("token")}`,
+      //     },
+      //   }
+      // );
 
       setUserData({
         name: personal.data.user.first_name,

@@ -27,3 +27,11 @@ export interface ISightings {
 export interface IReturnValues {
   sightings: ISightings[];
 }
+
+export interface IComment {
+  id: number;
+  user_id: number;
+  user_full_name: string;
+  sighting_id: number;
+  content: string;
+}

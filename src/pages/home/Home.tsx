@@ -4,6 +4,7 @@ import icon from "../../media/img/icon-search.svg";
 import Card from "../../components/card/Card";
 import axios from "axios";
 import { IExampleFlower, IFlowers } from "../../Types/IHome";
+import { searchForFlowers } from "../../components/services/api";
 
 const Home: React.FC = (): JSX.Element => {
   const [currentData, setCurrentData] = useState<IExampleFlower[]>([]);
@@ -11,9 +12,7 @@ const Home: React.FC = (): JSX.Element => {
 
   const fetchFlowers = async (): Promise<void> => {
     try {
-      const response = await axios.get<IFlowers>(
-        `https://flowrspot-api.herokuapp.com/api/v1/flowers/search?query=${input}`
-      );
+      const response = await searchForFlowers(input);
 
       setCurrentData(response.data.flowers);
     } catch (err) {

@@ -4,14 +4,17 @@ import profilePic from "../../media/img/profile-picture-2.png";
 import "./LogoutModal.scss";
 import { IModalProps } from "../../Types/IModals";
 import { IContext } from "../../Types/IApp";
-import { useSelector } from "react-redux";
-import { State } from "../../state";
-import { IUserInfo } from "../../state/actions/actions";
-import { IState } from "../../state/reducers/userReducer";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators, State } from "../../state";
+import { bindActionCreators } from "redux";
 
 const LogoutModal: React.FC<IModalProps> = ({ open, onClose }): JSX.Element => {
   const { setLoggedIn } = useContext<IContext>(UserContext);
   const userRedux = useSelector((state: State) => state.user);
+
+  const dispatch = useDispatch();
+  const { updateFavFlowers } = bindActionCreators(actionCreators, dispatch);
+  const flowersRedux = useSelector((state: State) => state.favFlowers);
 
   if (!open) return null;
 
@@ -57,6 +60,8 @@ const LogoutModal: React.FC<IModalProps> = ({ open, onClose }): JSX.Element => {
             onClose();
             setLoggedIn(false);
             localStorage.removeItem("token");
+            updateFavFlowers([]);
+            window.location.reload();
           }}
         >
           Logout

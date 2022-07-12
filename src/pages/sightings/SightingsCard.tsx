@@ -5,21 +5,25 @@ import favIcon from "../../media/img/fav-icon.png";
 import locationIcon from "../../media/img/location-icon.png";
 import { ISightings } from "../../Types/ISightings";
 import "./SightingsCard.scss";
+import { Link } from "react-router-dom";
 
 function SightingsCard({ sightings }: { sightings: ISightings }) {
+  console.log(sightings);
+
   return (
     <div className="sighting-container">
-      <div
+      <Link
         className="sighting-image"
         style={{
           backgroundImage: `url(${sightings.flower.profile_picture})`,
         }}
+        to={`/sightings/${sightings.id}`}
       >
         <div className="sighting-location">
           <img src={locationIcon} alt="" />
           <h4>San Francisco, US</h4>
         </div>
-      </div>
+      </Link>
       <div className="sighting-user-container">
         <img src={profile} alt="Profile" />
         <div>

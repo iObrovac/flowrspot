@@ -1,226 +1,75 @@
 import axios from "axios";
-import Cookies from "js-cookie";
-import { has, omit } from "lodash-es";
-import mixpanel from "mixpanel-browser";
 
-import { refreshAccessToken } from "@app/services/auth";
-import { history } from "@app/utils/history";
-
-let isRefreshing = false;
-let refreshSubscribers = [];
-
-async function refreshTokenIfExpired(error) {
-  // If the error was caused by cancelling the request, just rethrow.
-  if (axios.isCancel(error)) {
-    return Promise.reject(error);
-  }
-
-  const {
-    config,
-    response: { status },
-  } = error;
-  const originalRequest = config;
-
-  const refreshToken = Cookies.get("refresh_token");
-
-  if (status !== 401) {
-    return Promise.reject(error);
-  }
-
-  if (!isRefreshing) {
-    isRefreshing = true;
-
-    refreshAccessToken(refreshToken)
-      .then((newToken) => {
-        onRefreshed(newToken);
-      })
-      .catch(() => {
-        mixpanel.reset();
-        history.push("/login");
-      })
-      .finally(() => {
-        isRefreshing = false;
-      });
-  }
-
-  return new Promise((resolve) => {
-    subscribeToTokenRefresh((token) => {
-      if (token) {
-        originalRequest.headers["Authorization"] = `Bearer ${token}`;
-        resolve(privateApi(originalRequest));
-      }
+class Service {
+  constructor() {
+    const token = localStorage.getItem("token");
+    // console.log(process.env.REACT_APP_API_URL);
+    const service = axios.create({
+      baseURL: "https://flowrspot-api.herokuapp.com/api/v1/",
+      headers: token
+        ? {
+            Authorization: `Bearer ${token}`,
+          }
+        : {},
     });
-  });
-}
 
-/////////////////////////////////////
-
-function subscribeToTokenRefresh(cb) {
-  refreshSubscribers.push(cb);
-}
-
-function onRefreshed(token) {
-  // Timeout needed in case the `onRefreshed` function is called before all the failed requests are subscribed.
-  setTimeout(() => {
-    refreshSubscribers.forEach((cb) => cb(token));
-    refreshSubscribers = [];
-  }, 250);
-}
-
-function normalize(response) {
-  let data = {};
-
-  if (has(response, "data.data")) {
-    data = response.data.data;
-  } else if (has(response, "data")) {
-    data = response.data;
+    service.interceptors.response.use(this.handleSuccess, this.handleError);
+    this.service = service;
   }
 
-  return { ...response, data, ...omit(response.data, ["data"]) };
-}
+  handleSuccess(response) {
+    return response;
+  }
 
-function reject(error) {
-  return Promise.reject(error);
-}
+  handleError = (error) => {
+    console.log(error);
+    switch (error.response.status) {
+      case 401:
+        this.redirectTo(document, "/");
+        break;
+      case 404:
+        // this.redirectTo(document, "/404");
+        break;
+      default:
+        // this.redirectTo(document, "/500");
+        break;
+    }
+    return Promise.reject(error);
+  };
 
-export const apiUrlVersion = (version) =>
-  `${process.env.REACT_APP_SERVICE_BASE_URL}/api/${version}`;
-export const apiURLv1 = apiUrlVersion("v1");
+  redirectTo = (document, path) => {
+    document.location = path;
+  };
 
-/**
- * Axios instance for public endpoints.
- */
-export const publicApi = axios.create({
-  baseURL: process.env.REACT_APP_SERVICE_BASE_URL,
-  "Content-Type": "application/json",
-  withCredentials: true,
-});
+  get(path) {
+    return this.service.get(path).then((response) => response);
+  }
 
-/**
- * Axios instance for protected endpoints.
- */
-export const privateApi = axios.create({
-  baseURL: apiURLv1,
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
+  patch(path, payload) {
+    return this.service
+      .request({
+        method: "PATCH",
+        url: path,
+        responseType: "json",
+        data: payload,
+      })
+      .then((response) => response);
+  }
 
-export const analyticsApi = axios.create({
-  baseURL: process.env.REACT_APP_ANALYTICS_BASE_URL,
-  headers: {
-    "x-api-key": process.env.REACT_APP_ANALYTICS_API_KEY,
-    "Content-Type": "application/json",
-  },
-});
+  delete(path) {
+    return this.service.delete(path).then((response) => response);
+  }
 
-export const monetizationAnalyticsApi = axios.create({
-  baseURL: process.env.REACT_APP_MONETIZATION_ANALYTICS_BASE_URL,
-  headers: {
-    "x-api-key": process.env.REACT_APP_MONETIZATION_ANALYTICS_API_KEY,
-    "Content-Type": "application/json",
-  },
-});
-
-publicApi.interceptors.response.use(normalize, reject);
-privateApi.interceptors.response.use(normalize, refreshTokenIfExpired);
-analyticsApi.interceptors.response.use(normalize, reject);
-monetizationAnalyticsApi.interceptors.response.use(normalize, reject);
-
-/**
- * Attaches the provided token as an axios Authorization header.
- *
- * @param {string} token
- */
-export function attachAuthorizationHeader(token) {
-  publicApi.defaults.headers.common["Authorization"] = `Bearer ${token}`.trim();
-  privateApi.defaults.headers.common["Authorization"] =
-    `Bearer ${token}`.trim();
-}
-
-attachAuthorizationHeader(Cookies.get("access_token") || "");
-
-export function removeAuthorizationHeader() {
-  publicApi.defaults.headers.common["Authorization"] = `Bearer `;
-}
-
-export function removeCookies() {
-  Cookies.remove("access_token");
-  Cookies.remove("refresh_token");
-  Cookies.remove("token_type");
-}
-
-/////////////////////////////////////////////////
-/////////////////////////////////////////////////
-
-export async function fetchOrganizations() {
-  const { data: organizations } = await privateApi.get("/organizations");
-  return organizations;
-}
-
-export async function importPodcastOnOrganization(organizationId, data) {
-  try {
-    const response = await privateApi.post(
-      `/organizations/${organizationId}/import`,
-      data
-    );
-    return response.data;
-  } catch ({ response }) {
-    return {
-      error: response.data,
-    };
+  post(path, payload) {
+    return this.service
+      .request({
+        method: "POST",
+        url: path,
+        responseType: "json",
+        data: payload,
+      })
+      .then((response) => response);
   }
 }
 
-export async function createShowOnOrganization(organizationId, data) {
-  const response = await privateApi.post(
-    `/organizations/${organizationId}/shows`,
-    data
-  );
-
-  if (responseOk(response)) {
-    return response.data;
-  }
-}
-
-export async function fetchOrganizationShows(organizationId, params) {
-  return await privateApi.get(`/organizations/${organizationId}/shows`, {
-    params,
-  });
-}
-
-export async function createOrganization(data) {
-  const response = await privateApi.post("/organizations", data);
-
-  if (responseOk(response)) {
-    return response.data;
-  }
-}
-
-export async function addPodcastsToOrganization({ organizationId, showIds }) {
-  const response = await privateApi.post(
-    ` /organizations/${organizationId}/shows/migrate`,
-    { shows: showIds }
-  );
-
-  if (responseOk(response)) {
-    return response.data;
-  }
-}
-
-export async function fetchOrganizationUsers(organizationId, params) {
-  return await privateApi.get(`/organizations/${organizationId}/users`, {
-    params,
-  });
-}
-
-export async function addUsersToOrganization(organizationId, data) {
-  const response = await privateApi.post(
-    `/organizations/${organizationId}/invites`,
-    data
-  );
-
-  if (responseOk(response)) {
-    return response.data;
-  }
-}
+export default new Service();

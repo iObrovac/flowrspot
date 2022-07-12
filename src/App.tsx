@@ -6,8 +6,10 @@ import Flowers from "./pages/flowers/Flowers";
 import Sightings from "./pages/sightings/Sightings";
 import Favorites from "./pages/favorites/Favorites";
 import Nav from "./components/nav/Nav";
-import axios from "axios";
-import { IContext, IUserData, IReturnValue } from "../src/Types/IApp";
+import { IContext, IUserData } from "../src/Types/IApp";
+import { getDataAboutTheUser } from "./components/services/api";
+import FlowerInfo from "./pages/flowers/FlowerInfo";
+import SightingInfo from "./pages/sightings/SightingInfo";
 
 export const UserContext = createContext<IContext>(null);
 
@@ -17,14 +19,7 @@ const App: React.FC = (): JSX.Element => {
 
   const fetchData = async (): Promise<void> => {
     try {
-      const response = await axios.get<IReturnValue>(
-        "https://flowrspot-api.herokuapp.com/api/v1/users/me",
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const response = await getDataAboutTheUser();
 
       setUserData({
         name: response.data.user.first_name,
@@ -52,7 +47,9 @@ const App: React.FC = (): JSX.Element => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/flowers" element={<Flowers />} />
+            <Route path="/flowers/:id" element={<FlowerInfo />} />
             <Route path="/Sightings" element={<Sightings />} />
+            <Route path="/Sightings/:id" element={<SightingInfo />} />
             <Route path="/favorites" element={<Favorites />} />
           </Routes>
         </BrowserRouter>

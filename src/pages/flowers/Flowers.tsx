@@ -7,6 +7,10 @@ import { IContext } from "../../Types/IApp";
 import { IExampleFlower } from "../../Types/IHome";
 import { ISingleFlower, IGetFavorites, IFavFlower } from "../../Types/ICard";
 import { IRandomFlowers } from "../../Types/IFlowers";
+import {
+  fetchFavorites,
+  fetchRandomFlowers,
+} from "../../components/services/api";
 
 const Flowers: React.FC = (): JSX.Element => {
   const [flowerData, setFlowerData] = useState<IExampleFlower[]>();
@@ -16,14 +20,7 @@ const Flowers: React.FC = (): JSX.Element => {
 
   const getFavorites = async (): Promise<void> => {
     try {
-      const response2 = await axios.get<IGetFavorites>(
-        `https://flowrspot-api.herokuapp.com/api/v1/flowers/favorites?page=1`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const response2 = await fetchFavorites();
 
       setFavorites(response2.data.fav_flowers);
     } catch (err) {
@@ -39,9 +36,7 @@ const Flowers: React.FC = (): JSX.Element => {
     let isFavorite: boolean = false;
     let newArray: IExampleFlower[] = [];
     try {
-      const res = await axios.get<IRandomFlowers>(
-        `https://flowrspot-api.herokuapp.com/api/v1/flowers/random`
-      );
+      const res = await fetchRandomFlowers();
 
       res.data.flowers.forEach((flower: IExampleFlower) => {
         favorites?.forEach((favorite: IFavFlower) => {

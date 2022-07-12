@@ -8,6 +8,7 @@ import { IModalProps, IRegisterReturn } from "../../Types/IModals";
 import { useDispatch } from "react-redux";
 import { actionCreators } from "../../state";
 import { bindActionCreators } from "redux";
+import { createNewUser } from "../services/api";
 
 const NewAccModal: React.FC<IModalProps> = ({ open, onClose }): JSX.Element => {
   const [values, setValues] = useState<IUserData>({
@@ -33,19 +34,28 @@ const NewAccModal: React.FC<IModalProps> = ({ open, onClose }): JSX.Element => {
     console.log(values);
 
     try {
-      const response = await axios.post<IRegisterReturn>(
-        "https://flowrspot-api.herokuapp.com/api/v1/users/register",
-        JSON.stringify({
-          email: values.email,
-          password: values.password,
-          first_name: values.name,
-          last_name: values.lastName,
-          date_of_birth: new Date(values.dob).toDateString(),
-        }),
-        {
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      const response = await createNewUser({
+        email: values.email,
+        password: values.password,
+        first_name: values.name,
+        last_name: values.lastName,
+        date_of_birth: new Date(values.dob).toDateString(),
+      });
+
+      // axios.post<IRegisterReturn>(
+      //   "https://flowrspot-api.herokuapp.com/api/v1/users/register",
+      //   JSON.stringify({
+      //     email: values.email,
+      //     password: values.password,
+      //     first_name: values.name,
+      //     last_name: values.lastName,
+      //     date_of_birth: new Date(values.dob).toDateString(),
+      //   }),
+      //   {
+      //     headers: { "Content-Type": "application/json" },
+      //   }
+      // );
+
       console.log("RESPONSE: ", response);
       setLoggedIn(true);
       onClose();

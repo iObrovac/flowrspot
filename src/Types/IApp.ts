@@ -4,6 +4,7 @@ export interface IUserData {
   password?: string;
   email?: string;
   dob?: string;
+  date_of_birth?: string;
 }
 
 export interface IContext {

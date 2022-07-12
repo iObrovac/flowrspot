@@ -8,8 +8,6 @@ import "./SightingsCard.scss";
 import { Link } from "react-router-dom";
 
 function SightingsCard({ sightings }: { sightings: ISightings }) {
-  console.log(sightings);
-
   return (
     <div className="sighting-container">
       <Link
@@ -28,7 +26,7 @@ function SightingsCard({ sightings }: { sightings: ISightings }) {
         <img src={profile} alt="Profile" />
         <div>
           <h1>{sightings.name}</h1>
-          <h3>by Adam Moore</h3>
+          <h3>{sightings.user.full_name}</h3>
         </div>
       </div>
       <div className="sighting-description">{sightings.description}</div>

@@ -4,6 +4,7 @@
   background-position: top;
   background-repeat: no-repeat;
   height: 30rem;
+  max-width: 38rem;
   position: relative;
 }
 
@@ -74,6 +75,8 @@
   margin-bottom: 2rem;
   height: 17rem;
   overflow: auto;
+  overflow-wrap: break-word;
+  max-width: 30rem;
 }
 
 .sighting-bottom {

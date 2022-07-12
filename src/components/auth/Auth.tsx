@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import { State } from "../../state";
 
 const Auth: React.FC<INavigationProps> = ({
-  closeMobile,
+  closeMobile = () => {},
   openLogin,
   openNewAcc,
   openLogoutModal,
@@ -21,7 +21,6 @@ const Auth: React.FC<INavigationProps> = ({
     return (
       <div className="user-container" onClick={openLogoutModal}>
         <span className="name-plate">
-          {/* {userData.name} {userData.lastName} */}
           {userRedux.first_name} {userRedux.last_name}
         </span>
         <img src={icon} alt="Profile Icon" className="profile-icon" />

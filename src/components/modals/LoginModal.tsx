@@ -1,15 +1,16 @@
 import React, { useContext, useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../App";
 import "./LoginModal.scss";
 import { IModalProps } from "../../Types/IModals";
 import { IContext } from "../../Types/IApp";
-import { IRegisterReturn } from "../../Types/IModals";
-import { IUserLoginData, IGetMyPersonalData } from "../../Types/IModals";
+import { IUserLoginData } from "../../Types/IModals";
 import { getDataAboutTheUser, loginUser } from "../services/api";
 
-const LoginModal: React.FC<IModalProps> = ({ open, onClose }): JSX.Element => {
+const LoginModal: React.FC<IModalProps> = ({
+  open,
+  onClose,
+}): JSX.Element | null => {
   const [values, setValues] = useState<IUserLoginData>({
     email: "",
     password: "",
@@ -22,23 +23,9 @@ const LoginModal: React.FC<IModalProps> = ({ open, onClose }): JSX.Element => {
     e: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     e.preventDefault();
-    console.log(values);
 
     try {
-      // THIS ONE DOESN'T WORK !!! \/ \/ \/
       const response = await loginUser(values);
-      console.log(response);
-
-      // const response = await axios.post<IRegisterReturn>(
-      //   "https://flowrspot-api.herokuapp.com/api/v1/users/login",
-      //   JSON.stringify({
-      //     email: values.email,
-      //     password: values.password,
-      //   }),
-      //   {
-      //     headers: { "Content-Type": "application/json" },
-      //   }
-      // );
 
       setLoggedIn(true);
       onClose();
@@ -53,15 +40,6 @@ const LoginModal: React.FC<IModalProps> = ({ open, onClose }): JSX.Element => {
 
     try {
       const personal = await getDataAboutTheUser();
-      console.log("PERSONAL: ", personal);
-      // axios.get<IGetMyPersonalData>(
-      //   "https://flowrspot-api.herokuapp.com/api/v1/users/me",
-      //   {
-      //     headers: {
-      //       Authorization: `Bearer ${localStorage.getItem("token")}`,
-      //     },
-      //   }
-      // );
 
       setUserData({
         name: personal.data.user.first_name,

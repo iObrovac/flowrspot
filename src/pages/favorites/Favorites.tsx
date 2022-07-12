@@ -4,7 +4,7 @@ import { UserContext } from "../../App";
 import Card from "../../components/card/Card";
 import "./Favorites.scss";
 import { IContext } from "../../Types/IApp";
-import { IGetFavorites, ISingleFlower } from "../../Types/ICard";
+import { ISingleFlower } from "../../Types/ICard";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators, State } from "../../state";
 import { bindActionCreators } from "redux";
@@ -20,9 +20,6 @@ const Favorites: React.FC = (): JSX.Element => {
     const getFavorites = async (): Promise<void> => {
       try {
         const response = await fetchFavorites();
-
-        console.log("faw flow:", response.data.fav_flowers);
-
         // SAVE FAV FLOWER DATA TO REDUX
         updateFavFlowers(response.data.fav_flowers);
       } catch (err) {

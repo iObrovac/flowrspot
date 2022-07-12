@@ -13,7 +13,6 @@ const Home: React.FC = (): JSX.Element => {
   const fetchFlowers = async (): Promise<void> => {
     try {
       const response = await searchForFlowers(input);
-
       setCurrentData(response.data.flowers);
     } catch (err) {
       console.log(err);

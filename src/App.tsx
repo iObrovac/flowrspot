@@ -1,4 +1,4 @@
-import { useState, createContext, useEffect } from "react";
+import React, { useState, createContext, useEffect } from "react";
 import "./App.scss";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/home/Home";
@@ -11,11 +11,25 @@ import { getDataAboutTheUser } from "./components/services/api";
 import FlowerInfo from "./pages/flowers/FlowerInfo";
 import SightingInfo from "./pages/sightings/SightingInfo";
 
-export const UserContext = createContext<IContext>(null);
+const initalUserData = {
+  name: "",
+  lastName: "",
+  password: "",
+  email: "",
+  dob: "",
+  date_of_birth: "",
+};
+
+export const UserContext = createContext<IContext>({
+  loggedIn: false,
+  setLoggedIn: () => {},
+  userData: initalUserData,
+  setUserData: ({}: IUserData) => {},
+});
 
 const App: React.FC = (): JSX.Element => {
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
-  const [userData, setUserData] = useState<IUserData>();
+  const [userData, setUserData] = useState<IUserData>(initalUserData);
 
   const fetchData = async (): Promise<void> => {
     try {

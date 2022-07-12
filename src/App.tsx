@@ -7,9 +7,9 @@ import Sightings from "./pages/sightings/Sightings";
 import Favorites from "./pages/favorites/Favorites";
 import Nav from "./components/nav/Nav";
 import { IContext, IUserData } from "../src/Types/IApp";
-import { getDataAboutTheUser } from "./components/services/api";
 import FlowerInfo from "./pages/flowers/FlowerInfo";
 import SightingInfo from "./pages/sightings/SightingInfo";
+import { getDataAboutTheUser } from "./components/services/api";
 
 const initalUserData = {
   name: "",

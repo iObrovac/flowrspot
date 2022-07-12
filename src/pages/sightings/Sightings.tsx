@@ -6,7 +6,7 @@ import { getSightingsData } from "../../components/services/api";
 
 export default function Sightings(): JSX.Element {
   const [sightings, setSightings] = useState<ISightings[]>();
-  const [currentPage, setCurrentPage] = useState<number>(0);
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const [pages, setPages] = useState<IPages>();
 
   const getSightings = async (): Promise<void> => {
@@ -18,10 +18,6 @@ export default function Sightings(): JSX.Element {
       console.log(err);
     }
   };
-
-  if (currentPage < 1) setCurrentPage(1);
-  if (currentPage > (pages?.total_pages || 0))
-    setCurrentPage(pages?.total_pages || 0);
 
   useEffect(() => {
     getSightings();
@@ -45,6 +41,7 @@ export default function Sightings(): JSX.Element {
         <button
           className="btn-prev"
           onClick={() => setCurrentPage((prev) => prev - 1)}
+          disabled={currentPage <= 1}
         >
           Prev
         </button>

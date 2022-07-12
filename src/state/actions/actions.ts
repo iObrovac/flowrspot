@@ -1,5 +1,10 @@
 import { ISingleFlower } from "../../Types/ICard";
-import { ActionFlowers, ActionType } from "../action-types/actionTypes";
+import { IComment } from "../../Types/ISightings";
+import {
+  ActionComments,
+  ActionFlowers,
+  ActionType,
+} from "../action-types/actionTypes";
 
 export interface IUserInfo {
   email: string;
@@ -22,4 +27,9 @@ export interface updateFavoriteFlowers {
 export interface deleteOneFlower {
   type: ActionFlowers.DELETE_FLOWER;
   payload: number;
+}
+
+export interface updateCommentAction {
+  type: ActionComments.UPDATE_COMMENTS;
+  payload: IComment[];
 }

@@ -8,17 +8,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreators, State } from "../../state";
 import { bindActionCreators } from "redux";
 
-const LogoutModal: React.FC<IModalProps> = ({ open, onClose }): JSX.Element => {
+const LogoutModal: React.FC<IModalProps> = ({
+  open,
+  onClose,
+}): JSX.Element | null => {
   const { setLoggedIn } = useContext<IContext>(UserContext);
   const userRedux = useSelector((state: State) => state.user);
 
   const dispatch = useDispatch();
   const { updateFavFlowers } = bindActionCreators(actionCreators, dispatch);
-  const flowersRedux = useSelector((state: State) => state.favFlowers);
 
   if (!open) return null;
-
-  console.log(userRedux);
 
   return (
     <div className="logout-overlay" onClick={onClose}>

@@ -10,7 +10,10 @@ import { actionCreators } from "../../state";
 import { bindActionCreators } from "redux";
 import { createNewUser } from "../services/api";
 
-const NewAccModal: React.FC<IModalProps> = ({ open, onClose }): JSX.Element => {
+const NewAccModal: React.FC<IModalProps> = ({
+  open,
+  onClose,
+}): JSX.Element | null => {
   const [values, setValues] = useState<IUserData>({
     name: "",
     lastName: "",
@@ -31,44 +34,25 @@ const NewAccModal: React.FC<IModalProps> = ({ open, onClose }): JSX.Element => {
   ): Promise<void> => {
     e.preventDefault();
 
-    console.log(values);
-
     try {
       const response = await createNewUser({
-        email: values.email,
-        password: values.password,
-        first_name: values.name,
-        last_name: values.lastName,
-        date_of_birth: new Date(values.dob).toDateString(),
+        email: values.email || "",
+        password: values.password || "",
+        first_name: values.name || "",
+        last_name: values.lastName || "",
+        date_of_birth: new Date(values.dob || "").toDateString(),
       });
 
-      // axios.post<IRegisterReturn>(
-      //   "https://flowrspot-api.herokuapp.com/api/v1/users/register",
-      //   JSON.stringify({
-      //     email: values.email,
-      //     password: values.password,
-      //     first_name: values.name,
-      //     last_name: values.lastName,
-      //     date_of_birth: new Date(values.dob).toDateString(),
-      //   }),
-      //   {
-      //     headers: { "Content-Type": "application/json" },
-      //   }
-      // );
-
-      console.log("RESPONSE: ", response);
       setLoggedIn(true);
       onClose();
       setUserData(values);
 
-      console.log("VALUES: ", values);
-
       updateUserData({
-        date_of_birth: values.dob,
-        email: values.email,
-        password: values.password,
-        first_name: values.name,
-        last_name: values.lastName,
+        date_of_birth: values.dob || "",
+        email: values.email || "",
+        password: values.password || "",
+        first_name: values.name || "",
+        last_name: values.lastName || "",
       });
 
       localStorage.setItem("token", response.data.auth_token);

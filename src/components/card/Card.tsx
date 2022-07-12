@@ -3,7 +3,6 @@ import "./Card.scss";
 import star from "../../media/img/pl-icon-star.png";
 import whiteStar from "../../media/img/white-star.svg";
 import { UserContext } from "../../App";
-import { useNavigate } from "react-router-dom";
 import { IExampleFlower } from "../../Types/IHome";
 import { IContext } from "../../Types/IApp";
 import { ICardProps, ISingleFlower } from "../../Types/ICard";
@@ -22,17 +21,15 @@ const Card: React.FC<ICardProps> = ({
 
   const dispatch = useDispatch();
   const { deleteOneFavFlower } = bindActionCreators(actionCreators, dispatch);
-  let navigate = useNavigate();
 
   const likeFlower = async (): Promise<void> => {
     try {
-      const res = await postLikeFlower(flowerData.id);
-      console.log(res);
+      await postLikeFlower(flowerData.id);
 
       try {
-        const response2 = await fetchFavorites();
+        const res = await fetchFavorites();
 
-        response2.data.fav_flowers.map((flower: ISingleFlower) => {
+        res.data.fav_flowers.map((flower: ISingleFlower) => {
           if (flower.flower.id === flowerData.id) {
             setFlowerInfo(flower.flower);
           }
@@ -48,23 +45,26 @@ const Card: React.FC<ICardProps> = ({
   const unlikeFlower = async (): Promise<void> => {
     try {
       const response = await fetchFavorites();
-      console.log(response);
-      response.data.fav_flowers.map((flower: ISingleFlower) => {
+      response.data.fav_flowers.forEach((flower: ISingleFlower) => {
         if (flower.flower.id === flowerData.id) {
           flowerInfo.likeId = flower.id;
         }
       });
 
-      try {
-        const response = await deleteFav(flowerData.id, flowerInfo.likeId);
+      if (flowerInfo.likeId) {
+        try {
+          const response = await deleteFav(flowerData.id, flowerInfo.likeId);
 
-        // REMOVE THE FLOWER FROM REDUX STATE
-        deleteOneFavFlower(flowerInfo.likeId);
+          // REMOVE THE FLOWER FROM REDUX STATE
+          deleteOneFavFlower(flowerInfo.likeId);
 
-        if (response) setFlowerInfo(response.data.fav_flower.flower);
-        console.log(response);
-      } catch (err) {
-        console.log(err);
+          if (response) setFlowerInfo(response.data.fav_flower.flower);
+          console.log(response);
+        } catch (err) {
+          console.log(err);
+        }
+      } else {
+        console.log("flowerInfo.likeId is missing");
       }
     } catch (err) {
       console.log(err);
@@ -85,9 +85,9 @@ const Card: React.FC<ICardProps> = ({
       <div
         className="card-sightings"
         style={{
-          background:
-            flowerInfo.favorite &&
-            "linear-gradient(270deg, #ECBCB3 0%, #EAA79E 100%)",
+          background: flowerInfo.favorite
+            ? "linear-gradient(270deg, #ECBCB3 0%, #EAA79E 100%)"
+            : "",
         }}
         onClick={(e) => e.stopPropagation()}
       >
@@ -101,9 +101,9 @@ const Card: React.FC<ICardProps> = ({
             flowerInfo.favorite ? unlikeFlower() : likeFlower();
           }}
           style={{
-            background:
-              flowerInfo.favorite &&
-              "linear-gradient(270deg, #ECBCB3 0%, #EAA79E 100%)",
+            background: flowerInfo.favorite
+              ? "linear-gradient(270deg, #ECBCB3 0%, #EAA79E 100%)"
+              : "",
           }}
         >
           {flowerInfo.favorite ? (

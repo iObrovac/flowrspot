@@ -12,16 +12,23 @@ import commentIcon from "../../media/img/comment-icon.png";
 import favIcon from "../../media/img/fav-icon.png";
 import profilePic from "../../media/img/profile-picture-2.png";
 import avatar from "../../media/img/Avatar.png";
+import { useDispatch, useSelector } from "react-redux";
+import { State } from "../../state";
+import { updateSightingComments } from "../../state/action-creators/action-creators";
 
 function SightingInfo() {
   const { id } = useParams();
   const [loading, setLoading] = useState<boolean>(true);
   const [sighting, setSighting] = useState<ISightings>();
   const [comments, setComments] = useState<IComment[]>();
-  const refComment = useRef<HTMLTextAreaElement>();
+  const refComment = useRef<HTMLTextAreaElement>(null);
   const [myComment, setMyComment] = useState({
     content: "",
   });
+
+  // Implementing redux in a new way ----------------
+  const dispatch = useDispatch();
+  const newComments = useSelector((state: State) => state.comments);
 
   const handleAddComment = () => {
     if (refComment.current) {
@@ -31,7 +38,7 @@ function SightingInfo() {
 
   const fetchSight = async (): Promise<void> => {
     try {
-      const res = await fetchOneSighting(id);
+      const res = await fetchOneSighting(Number(id));
       setSighting(res.data.sighting);
     } catch (err) {
       console.log(err);
@@ -42,9 +49,12 @@ function SightingInfo() {
 
   const getComments = async (): Promise<void> => {
     try {
-      const res = await fetchComments(id);
+      const res = await fetchComments(Number(id));
+
       setComments(res.data.comments);
-      console.log(comments);
+
+      // dispatching action the new way
+      dispatch(updateSightingComments(res.data.comments));
     } catch (err) {
       console.log(err);
     }
@@ -52,8 +62,7 @@ function SightingInfo() {
 
   const publishMyComment = async (): Promise<void> => {
     try {
-      const res = await postMyComment(id, myComment);
-      console.log(res);
+      await postMyComment(Number(id), myComment);
     } catch (err) {
       console.log(err);
     } finally {
@@ -96,8 +105,8 @@ function SightingInfo() {
           <div className="sight-user">
             <img src={profilePic} alt="" />
             <div className="sight-user-data">
-              <h3 className="sight-flower">{sighting.name}</h3>
-              <h4 className="sight-user-name">by Adam Moore</h4>
+              <h3 className="sight-flower">{sighting?.name}</h3>
+              <h4 className="sight-user-name">by {sighting?.user.full_name}</h4>
             </div>
           </div>
 
@@ -129,7 +138,7 @@ function SightingInfo() {
         </button>
       </div>
 
-      {comments?.map((comment) => {
+      {newComments?.map((comment) => {
         return (
           <div key={comment.id} className="comments-container">
             <div className="comment-details">

@@ -21,7 +21,6 @@ const Flowers: React.FC = (): JSX.Element => {
   const getFavorites = async (): Promise<void> => {
     try {
       const response2 = await fetchFavorites();
-
       setFavorites(response2.data.fav_flowers);
     } catch (err) {
       console.log(err);

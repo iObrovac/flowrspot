@@ -35,3 +35,10 @@ export interface IComment {
   sighting_id: number;
   content: string;
 }
+
+export interface IPages {
+  current_page: number;
+  prev_page: number;
+  next_page: number;
+  total_pages: number;
+}

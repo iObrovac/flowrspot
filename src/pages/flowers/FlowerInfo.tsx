@@ -13,8 +13,7 @@ function FlowerInfo() {
   useEffect(() => {
     const getData = async (): Promise<void> => {
       try {
-        const info = await fetchFlowerInfo(id);
-        console.log(info.data.flower);
+        const info = await fetchFlowerInfo(Number(id));
         setOneFlowerInfo(info.data.flower);
       } catch (err) {
         console.log(err);
@@ -36,18 +35,18 @@ function FlowerInfo() {
   return (
     <>
       <div className="info-background">
-        <img className="info-pic" src={oneFlowerInfo.profile_picture} alt="" />
+        <img className="info-pic" src={oneFlowerInfo?.profile_picture} alt="" />
         <div className="info-data">
           <div className="info-like">
             <div className="info-star-container">
               <img src={star} alt="" />
             </div>
             <div className="info-sightings">
-              {oneFlowerInfo.sightings} Sightings
+              {oneFlowerInfo?.sightings} Sightings
             </div>
           </div>
-          <h1 className="info-name">{oneFlowerInfo.name}</h1>
-          <h3 className="info-latin-name">{oneFlowerInfo.latin_name}</h3>
+          <h1 className="info-name">{oneFlowerInfo?.name}</h1>
+          <h3 className="info-latin-name">{oneFlowerInfo?.latin_name}</h3>
         </div>
         <button>+Add New Sighting</button>
       </div>
@@ -84,7 +83,7 @@ function FlowerInfo() {
             Garden Merit.
           </div>
 
-          <div>{oneFlowerInfo.description}</div>
+          <div>{oneFlowerInfo?.description}</div>
         </div>
       </div>
     </>

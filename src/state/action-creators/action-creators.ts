@@ -1,4 +1,8 @@
-import { ActionFlowers, ActionType } from "../action-types/actionTypes";
+import {
+  ActionComments,
+  ActionFlowers,
+  ActionType,
+} from "../action-types/actionTypes";
 import { Dispatch } from "react";
 import {
   updateUserAction,
@@ -7,9 +11,9 @@ import {
   deleteOneFlower,
 } from "../actions/actions";
 import { ISingleFlower } from "../../Types/ICard";
+import { IComment } from "../../Types/ISightings";
 
 export const updateUserData = (data: IUserInfo) => {
-  console.log("DATA: ", data);
   return (dispatch: Dispatch<updateUserAction>) => {
     dispatch({
       type: ActionType.UPDATE_USER,
@@ -19,7 +23,6 @@ export const updateUserData = (data: IUserInfo) => {
 };
 
 export const updateFavFlowers = (flowers: ISingleFlower[]) => {
-  console.log("FAV FLOWERS IZ ACTION CREATORA", flowers);
   return (dispatch: Dispatch<updateFavoriteFlowers>) => {
     dispatch({
       type: ActionFlowers.UPDATE_FAVORITE_FLOWERS,
@@ -36,3 +39,8 @@ export const deleteOneFavFlower = (id: number) => {
     });
   };
 };
+
+export const updateSightingComments = (value: IComment[]) => ({
+  type: ActionComments.UPDATE_COMMENTS,
+  payload: value,
+});

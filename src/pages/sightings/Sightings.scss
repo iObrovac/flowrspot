@@ -83,3 +83,61 @@
     grid-template-columns: repeat(1, 1fr);
   }
 }
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+}
+
+.btn-prev {
+  width: 18.8rem;
+  height: 5rem;
+  margin-bottom: 3.3rem;
+  margin-right: 2rem;
+  background: linear-gradient(270deg, #ecbcb3 0%, #eaa79e 100%);
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+
+  font-family: "Ubuntu";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 14px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.btn-next {
+  width: 18.8rem;
+  height: 5rem;
+  margin-bottom: 3.3rem;
+  margin-right: 2rem;
+  background: linear-gradient(270deg, #ecbcb3 0%, #eaa79e 100%);
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+
+  font-family: "Ubuntu";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 14px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.curr-page {
+  font-family: "Ubuntu";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 4rem;
+  align-self: flex-start;
+
+  margin-right: 3rem;
+  margin-left: 1.5rem;
+}
